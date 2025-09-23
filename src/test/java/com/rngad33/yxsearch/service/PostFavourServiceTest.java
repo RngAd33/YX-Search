@@ -1,9 +1,9 @@
-package com.yupi.springbootinit.service;
+package com.rngad33.yxsearch.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yupi.springbootinit.model.entity.Post;
-import com.yupi.springbootinit.model.entity.User;
+import com.rngad33.yxsearch.model.entity.Post;
+import com.rngad33.yxsearch.model.entity.User;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,6 +1,6 @@
-package com.yupi.springbootinit.service;
+package com.rngad33.yxsearch.service;
 
-import com.yupi.springbootinit.model.entity.User;
+import com.rngad33.yxsearch.model.entity.User;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

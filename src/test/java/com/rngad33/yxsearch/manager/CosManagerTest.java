@@ -1,4 +1,4 @@
-package com.yupi.springbootinit.manager;
+package com.rngad33.yxsearch.manager;
 
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Test;

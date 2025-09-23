@@ -1,6 +1,6 @@
-package com.yupi.springbootinit.mapper;
+package com.rngad33.yxsearch.mapper;
 
-import com.yupi.springbootinit.model.entity.Post;
+import com.rngad33.yxsearch.model.entity.Post;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
