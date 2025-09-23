@@ -1,8 +1,8 @@
 -- 创建库
-create database if not exists my_db;
+create database if not exists yx_search_db;
 
 -- 切换库
-use my_db;
+use yx_search_db;
 
 -- 用户表
 create table if not exists user
