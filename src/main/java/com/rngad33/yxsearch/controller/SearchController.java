@@ -15,7 +15,6 @@ import com.rngad33.yxsearch.model.vo.UserVO;
 import com.rngad33.yxsearch.service.PictureService;
 import com.rngad33.yxsearch.service.PostService;
 import com.rngad33.yxsearch.service.UserService;
-import io.netty.util.concurrent.CompleteFuture;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
