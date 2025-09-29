@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rngad33.yxsearch.common.BaseResponse;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.common.ResultUtils;
-import com.rngad33.yxsearch.exception.BusinessException;
+import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.model.dto.post.PostQueryRequest;
 import com.rngad33.yxsearch.model.dto.postfavour.PostFavourAddRequest;
@@ -25,9 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 帖子收藏接口
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @RestController
 @RequestMapping("/post_favour")
@@ -54,7 +51,7 @@ public class PostFavourController {
     public BaseResponse<Integer> doPostFavour(@RequestBody PostFavourAddRequest postFavourAddRequest,
             HttpServletRequest request) {
         if (postFavourAddRequest == null || postFavourAddRequest.getPostId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         // 登录才能操作
         final User loginUser = userService.getLoginUser(request);
@@ -73,7 +70,7 @@ public class PostFavourController {
     public BaseResponse<Page<PostVO>> listMyFavourPostByPage(@RequestBody PostQueryRequest postQueryRequest,
             HttpServletRequest request) {
         if (postQueryRequest == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         User loginUser = userService.getLoginUser(request);
         long current = postQueryRequest.getCurrent();
@@ -95,7 +92,7 @@ public class PostFavourController {
     public BaseResponse<Page<PostVO>> listFavourPostByPage(@RequestBody PostFavourQueryRequest postFavourQueryRequest,
             HttpServletRequest request) {
         if (postFavourQueryRequest == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         long current = postFavourQueryRequest.getCurrent();
         long size = postFavourQueryRequest.getPageSize();

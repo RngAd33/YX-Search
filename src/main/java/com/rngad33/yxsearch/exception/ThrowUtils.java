@@ -4,9 +4,6 @@ import com.rngad33.yxsearch.common.ErrorCode;
 
 /**
  * 抛异常工具类
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public class ThrowUtils {
 
@@ -29,7 +26,7 @@ public class ThrowUtils {
      * @param errorCode
      */
     public static void throwIf(boolean condition, ErrorCode errorCode) {
-        throwIf(condition, new BusinessException(errorCode));
+        throwIf(condition, new MyException(errorCode));
     }
 
     /**
@@ -40,6 +37,6 @@ public class ThrowUtils {
      * @param message
      */
     public static void throwIf(boolean condition, ErrorCode errorCode, String message) {
-        throwIf(condition, new BusinessException(errorCode, message));
+        throwIf(condition, new MyException(errorCode, message));
     }
 }

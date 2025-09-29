@@ -8,7 +8,7 @@ import com.rngad33.yxsearch.common.DeleteRequest;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.common.ResultUtils;
 import com.rngad33.yxsearch.constant.UserConstant;
-import com.rngad33.yxsearch.exception.BusinessException;
+import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.model.dto.post.PostAddRequest;
 import com.rngad33.yxsearch.model.dto.post.PostEditRequest;
@@ -32,9 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 帖子接口
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @RestController
 @RequestMapping("/post")
@@ -59,7 +56,7 @@ public class PostController {
     @PostMapping("/add")
     public BaseResponse<Long> addPost(@RequestBody PostAddRequest postAddRequest, HttpServletRequest request) {
         if (postAddRequest == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         Post post = new Post();
         BeanUtils.copyProperties(postAddRequest, post);
@@ -88,7 +85,7 @@ public class PostController {
     @PostMapping("/delete")
     public BaseResponse<Boolean> deletePost(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         User user = userService.getLoginUser(request);
         long id = deleteRequest.getId();
@@ -97,7 +94,7 @@ public class PostController {
         ThrowUtils.throwIf(oldPost == null, ErrorCode.NOT_FOUND_ERROR);
         // 仅本人或管理员可删除
         if (!oldPost.getUserId().equals(user.getId()) && !userService.isAdmin(request)) {
-            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+            throw new MyException(ErrorCode.NO_AUTH_ERROR);
         }
         boolean b = postService.removeById(id);
         return ResultUtils.success(b);
@@ -113,7 +110,7 @@ public class PostController {
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updatePost(@RequestBody PostUpdateRequest postUpdateRequest) {
         if (postUpdateRequest == null || postUpdateRequest.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         Post post = new Post();
         BeanUtils.copyProperties(postUpdateRequest, post);
@@ -140,11 +137,11 @@ public class PostController {
     @GetMapping("/get/vo")
     public BaseResponse<PostVO> getPostVOById(long id, HttpServletRequest request) {
         if (id <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         Post post = postService.getById(id);
         if (post == null) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+            throw new MyException(ErrorCode.NOT_FOUND_ERROR);
         }
         return ResultUtils.success(postService.getPostVO(post, request));
     }
@@ -195,7 +192,7 @@ public class PostController {
     public BaseResponse<Page<PostVO>> listMyPostVOByPage(@RequestBody PostQueryRequest postQueryRequest,
             HttpServletRequest request) {
         if (postQueryRequest == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         User loginUser = userService.getLoginUser(request);
         postQueryRequest.setUserId(loginUser.getId());
@@ -237,7 +234,7 @@ public class PostController {
     @PostMapping("/edit")
     public BaseResponse<Boolean> editPost(@RequestBody PostEditRequest postEditRequest, HttpServletRequest request) {
         if (postEditRequest == null || postEditRequest.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         Post post = new Post();
         BeanUtils.copyProperties(postEditRequest, post);
@@ -254,7 +251,7 @@ public class PostController {
         ThrowUtils.throwIf(oldPost == null, ErrorCode.NOT_FOUND_ERROR);
         // 仅本人或管理员可编辑
         if (!oldPost.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
-            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+            throw new MyException(ErrorCode.NO_AUTH_ERROR);
         }
         boolean result = postService.updateById(post);
         return ResultUtils.success(result);

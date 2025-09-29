@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.constant.CommonConstant;
-import com.rngad33.yxsearch.exception.BusinessException;
+import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.mapper.PostFavourMapper;
 import com.rngad33.yxsearch.mapper.PostMapper;
@@ -68,7 +68,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     @Override
     public void validPost(Post post, boolean add) {
         if (post == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         String title = post.getTitle();
         String content = post.getContent();
@@ -79,10 +79,10 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         }
         // 有参数则校验
         if (StringUtils.isNotBlank(title) && title.length() > 80) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "标题过长");
+            throw new MyException(ErrorCode.PARAMS_ERROR, "标题过长");
         }
         if (StringUtils.isNotBlank(content) && content.length() > 8192) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "内容过长");
+            throw new MyException(ErrorCode.PARAMS_ERROR, "内容过长");
         }
     }
 

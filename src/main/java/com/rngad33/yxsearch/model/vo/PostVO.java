@@ -1,6 +1,7 @@
 package com.rngad33.yxsearch.model.vo;
 
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.model.entity.Post;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,12 +11,10 @@ import org.springframework.beans.BeanUtils;
 
 /**
  * 帖子视图
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Data
-public class PostVO implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostVO {
 
     /**
      * id
@@ -109,4 +108,5 @@ public class PostVO implements Serializable {
         postVO.setTagList(JSONUtil.toList(post.getTags(), String.class));
         return postVO;
     }
+
 }

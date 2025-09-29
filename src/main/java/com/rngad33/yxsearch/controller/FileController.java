@@ -5,7 +5,7 @@ import com.rngad33.yxsearch.common.BaseResponse;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.common.ResultUtils;
 import com.rngad33.yxsearch.constant.FileConstant;
-import com.rngad33.yxsearch.exception.BusinessException;
+import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.manager.CosManager;
 import com.rngad33.yxsearch.model.dto.file.UploadFileRequest;
 import com.rngad33.yxsearch.model.entity.User;
@@ -25,9 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 文件接口
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @RestController
 @RequestMapping("/file")
@@ -54,7 +51,7 @@ public class FileController {
         String biz = uploadFileRequest.getBiz();
         FileUploadBizEnum fileUploadBizEnum = FileUploadBizEnum.getEnumByValue(biz);
         if (fileUploadBizEnum == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new MyException(ErrorCode.PARAMS_ERROR);
         }
         validFile(multipartFile, fileUploadBizEnum);
         User loginUser = userService.getLoginUser(request);
@@ -72,7 +69,7 @@ public class FileController {
             return ResultUtils.success(FileConstant.COS_HOST + filepath);
         } catch (Exception e) {
             log.error("file upload error, filepath = " + filepath, e);
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "上传失败");
+            throw new MyException(ErrorCode.SYSTEM_ERROR, "上传失败");
         } finally {
             if (file != null) {
                 // 删除临时文件
@@ -98,10 +95,10 @@ public class FileController {
         final long ONE_M = 1024 * 1024L;
         if (FileUploadBizEnum.USER_AVATAR.equals(fileUploadBizEnum)) {
             if (fileSize > ONE_M) {
-                throw new BusinessException(ErrorCode.PARAMS_ERROR, "文件大小不能超过 1M");
+                throw new MyException(ErrorCode.PARAMS_ERROR, "文件大小不能超过 1M");
             }
             if (!Arrays.asList("jpeg", "jpg", "svg", "png", "webp").contains(fileSuffix)) {
-                throw new BusinessException(ErrorCode.PARAMS_ERROR, "文件类型错误");
+                throw new MyException(ErrorCode.PARAMS_ERROR, "文件类型错误");
             }
         }
     }

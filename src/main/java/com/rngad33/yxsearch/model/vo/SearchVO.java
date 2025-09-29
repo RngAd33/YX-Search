@@ -1,5 +1,6 @@
 package com.rngad33.yxsearch.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.model.entity.Picture;
 import lombok.Data;
 
@@ -10,7 +11,8 @@ import java.util.List;
  * 搜索视图
  */
 @Data
-public class SearchVO implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class SearchVO {
 
     /**
      * 用户表

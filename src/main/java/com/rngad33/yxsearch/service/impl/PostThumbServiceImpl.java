@@ -3,7 +3,7 @@ package com.rngad33.yxsearch.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rngad33.yxsearch.common.ErrorCode;
-import com.rngad33.yxsearch.exception.BusinessException;
+import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.mapper.PostThumbMapper;
 import com.rngad33.yxsearch.model.entity.Post;
 import com.rngad33.yxsearch.model.entity.PostThumb;
@@ -40,7 +40,7 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
         // 判断实体是否存在，根据类别获取实体
         Post post = postService.getById(postId);
         if (post == null) {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+            throw new MyException(ErrorCode.NOT_FOUND_ERROR);
         }
         // 是否已点赞
         long userId = loginUser.getId();
@@ -80,7 +80,7 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
                         .update();
                 return result ? -1 : 0;
             } else {
-                throw new BusinessException(ErrorCode.SYSTEM_ERROR);
+                throw new MyException(ErrorCode.SYSTEM_ERROR);
             }
         } else {
             // 未点赞
@@ -93,7 +93,7 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
                         .update();
                 return result ? 1 : 0;
             } else {
-                throw new BusinessException(ErrorCode.SYSTEM_ERROR);
+                throw new MyException(ErrorCode.SYSTEM_ERROR);
             }
         }
     }

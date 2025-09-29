@@ -2,16 +2,16 @@ package com.rngad33.yxsearch.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
  * 用户视图（脱敏）
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Data
-public class UserVO implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserVO {
 
     /**
      * id
@@ -43,5 +43,4 @@ public class UserVO implements Serializable {
      */
     private Date createTime;
 
-    private static final long serialVersionUID = 1L;
 }
