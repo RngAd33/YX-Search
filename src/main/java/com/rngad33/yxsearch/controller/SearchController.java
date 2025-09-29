@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rngad33.yxsearch.common.BaseResponse;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.common.ResultUtils;
-import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.model.dto.post.PostQueryRequest;
 import com.rngad33.yxsearch.model.dto.search.SearchRequest;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * 搜索接口
