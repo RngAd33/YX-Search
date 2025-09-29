@@ -81,7 +81,6 @@ public class SearchController {
         } catch (Exception e) {
             throw new MyException(ErrorCode.SYSTEM_ERROR, "查询异常！");
         }
-
     }
 
 }
