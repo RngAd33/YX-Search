@@ -1,6 +1,10 @@
 package com.rngad33.yxsearch.service;
 
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rngad33.yxsearch.model.dto.user.UserQueryRequest;
 import com.rngad33.yxsearch.model.entity.User;
@@ -8,14 +12,8 @@ import com.rngad33.yxsearch.model.vo.LoginUserVO;
 import com.rngad33.yxsearch.model.vo.UserVO;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
 /**
  * 用户服务
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public interface UserService extends IService<User> {
 
@@ -119,4 +117,10 @@ public interface UserService extends IService<User> {
      */
     QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 
+    /**
+     * 分页查询用户
+     *
+     * @param userQueryRequest
+     */
+    Page<UserVO> listUserVOByPage(UserQueryRequest userQueryRequest);
 }

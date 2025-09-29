@@ -2,6 +2,9 @@ package com.rngad33.yxsearch.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import javax.annotation.Resource;
+
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.mapper.PostThumbMapper;
@@ -14,13 +17,8 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-
 /**
  * 帖子点赞服务实现
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Service
 public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb>
@@ -100,7 +98,3 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
     }
 
 }
-
-
-
-
