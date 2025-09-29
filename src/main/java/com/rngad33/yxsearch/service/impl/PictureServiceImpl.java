@@ -23,6 +23,14 @@ import java.util.Map;
 @Service
 public class PictureServiceImpl implements PictureService {
 
+    /**
+     * 在线抓取图片
+     *
+     * @param searchText
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public Page<Picture> searchPicture(String searchText, long pageNum, long pageSize) {
         long current = (pageNum - 1) * pageSize;
@@ -56,4 +64,5 @@ public class PictureServiceImpl implements PictureService {
         picturePage.setRecords(pictures);
         return picturePage;
     }
+
 }

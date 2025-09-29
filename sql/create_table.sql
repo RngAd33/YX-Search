@@ -22,14 +22,6 @@ create table if not exists user
     index idx_unionId (unionId)
 ) comment '用户' collate = utf8mb4_unicode_ci;
 
--- 图片表
-create table if not exists picture
-(
-    id         bigint auto_increment comment 'id' primary key,
-    title      varchar(256)                           null comment '标题',
-    url        varchar(1024)                          null comment '图片地址',
-) comment '图片' collate = utf8mb4_unicode_ci;
-
 -- 帖子表
 create table if not exists post
 (
