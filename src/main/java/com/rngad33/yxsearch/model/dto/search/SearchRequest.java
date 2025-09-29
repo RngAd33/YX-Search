@@ -10,6 +10,14 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SearchRequest {
 
+    /**
+     * 搜索词
+     */
+    private String searchText;
 
+    /**
+     * 类型
+     */
+    private String type;
 
 }
