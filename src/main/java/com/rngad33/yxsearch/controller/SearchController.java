@@ -47,7 +47,7 @@ public class SearchController {
      *
      * @param searchRequest
      * @param request
-     * @return
+     * @return searchVO
      */
     @PostMapping("/all")
     public BaseResponse<SearchVO> searchAll(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
