@@ -57,8 +57,8 @@ public class SearchController {
             return userService.listUserVOByPage(userQueryRequest);
         });
         // 搜图片
-        CompletableFuture<Page<Picture>> pictureFuture = CompletableFuture.supplyAsync(
-                () -> pictureService.searchPicture(searchText, 1, 10)
+        CompletableFuture<Page<Picture>> pictureFuture = CompletableFuture
+                .supplyAsync(() -> pictureService.searchPicture(searchText, 1, 10)
         );
         // 搜帖子
         CompletableFuture<Page<PostVO>> postFuture = CompletableFuture.supplyAsync(() -> {
@@ -80,6 +80,50 @@ public class SearchController {
         } catch (Exception e) {
             throw new MyException(ErrorCode.SYSTEM_ERROR, "查询异常！");
         }
+    }
+
+    /**
+     * 单独搜索用户
+     *
+     * @param searchRequest
+     * @return
+     */
+    @PostMapping("/user")
+    public BaseResponse<Page<UserVO>> searchUsers(@RequestBody SearchRequest searchRequest) {
+        String searchText = searchRequest.getSearchText();
+        UserQueryRequest userQueryRequest = new UserQueryRequest();
+        userQueryRequest.setUserName(searchText);
+        Page<UserVO> userVOPage = userService.listUserVOByPage(userQueryRequest);
+        return ResultUtils.success(userVOPage);
+    }
+
+    /**
+     * 单独搜索图片
+     *
+     * @param searchRequest
+     * @return
+     */
+    @PostMapping("/pic")
+    public BaseResponse<Page<Picture>> searchPictures(@RequestBody SearchRequest searchRequest) {
+        String searchText = searchRequest.getSearchText();
+        Page<Picture> picturePage = pictureService.searchPicture(searchText, 1, 10);
+        return ResultUtils.success(picturePage);
+    }
+
+    /**
+     * 单独搜索帖子
+     *
+     * @param searchRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/post")
+    public BaseResponse<Page<PostVO>> searchPosts(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
+        String searchText = searchRequest.getSearchText();
+        PostQueryRequest postQueryRequest = new PostQueryRequest();
+        postQueryRequest.setSearchText(searchText);
+        Page<PostVO> postVOPage = postService.listPostVOByPage(postQueryRequest, request);
+        return ResultUtils.success(postVOPage);
     }
 
 }
