@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.rngad33.yxsearch.service.impl.UserServiceImpl.SALT;
-
 /**
  * 用户接口
  */
@@ -44,6 +42,11 @@ public class UserController {
 
     @Resource
     private WxOpenConfig wxOpenConfig;
+
+    /**
+     * 盐值，混淆密码
+     */
+    private static final String SALT = "reg";
 
     // region 登录相关
 

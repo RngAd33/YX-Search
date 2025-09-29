@@ -1,14 +1,18 @@
 package com.rngad33.yxsearch.controller;
 
+import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rngad33.yxsearch.common.BaseResponse;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.common.ResultUtils;
 import com.rngad33.yxsearch.exception.MyException;
+import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.model.dto.post.PostQueryRequest;
 import com.rngad33.yxsearch.model.dto.search.SearchRequest;
 import com.rngad33.yxsearch.model.dto.user.UserQueryRequest;
 import com.rngad33.yxsearch.model.entity.Picture;
+import com.rngad33.yxsearch.model.enums.SearchTypeEnum;
 import com.rngad33.yxsearch.model.vo.PostVO;
 import com.rngad33.yxsearch.model.vo.SearchVO;
 import com.rngad33.yxsearch.model.vo.UserVO;
@@ -50,64 +54,58 @@ public class SearchController {
     @PostMapping("/all")
     public BaseResponse<SearchVO> searchAll(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
         String searchText = searchRequest.getSearchText();
-        // 搜用户
-        CompletableFuture<Page<UserVO>> userFuture = CompletableFuture.supplyAsync(() -> {
-            UserQueryRequest userQueryRequest = new UserQueryRequest();
-            userQueryRequest.setUserName(searchText);
-            return userService.listUserVOByPage(userQueryRequest);
-        });
-        // 搜图片
-        CompletableFuture<Page<Picture>> pictureFuture = CompletableFuture
-                .supplyAsync(() -> pictureService.searchPicture(searchText, 1, 10)
-        );
-        // 搜帖子
-        CompletableFuture<Page<PostVO>> postFuture = CompletableFuture.supplyAsync(() -> {
-            PostQueryRequest postQueryRequest = new PostQueryRequest();
-            postQueryRequest.setSearchText(searchText);
-            return postService.listPostVOByPage(postQueryRequest, request);
-        });
-        CompletableFuture.allOf(userFuture, pictureFuture, postFuture).join();
-        // 聚合
-        try {
-            Page<UserVO> userVOPage = userFuture.get();
-            Page<Picture> picturePage = pictureFuture.get();
-            Page<PostVO> postVOPage = postFuture.get();
-            SearchVO searchVO = new SearchVO();
+        String type = searchRequest.getType();
+        SearchTypeEnum searchTypeEnum = SearchTypeEnum.getEnumByValue(type);
+        ThrowUtils.throwIf(!StrUtil.isAllNotBlank(searchText, type), ErrorCode.PARAMS_ERROR);
+        SearchVO searchVO = new SearchVO();
+        if (ObjUtil.isNull(searchTypeEnum)) {
+            // 未规定类型，搜索所有
+            Page<UserVO> userVOPage = this.searchUsers(searchRequest);
+            Page<Picture> picturePage = this.searchPictures(searchRequest);
+            Page<PostVO> postVOPage = this.searchPosts(searchRequest, request);
+            // 聚合
             searchVO.setUserList(userVOPage.getRecords());
             searchVO.setPictureList(picturePage.getRecords());
             searchVO.setPostList(postVOPage.getRecords());
-            return ResultUtils.success(searchVO);
-        } catch (Exception e) {
-            throw new MyException(ErrorCode.SYSTEM_ERROR, "查询异常！");
+        } else {
+            // 匹配类型搜索
+            switch (searchTypeEnum) {
+                case USER:
+                    Page<UserVO> userVOPage = this.searchUsers(searchRequest);
+                    searchVO.setUserList(userVOPage.getRecords());
+                case PICTURE:
+                    Page<Picture> picturePage = searchPictures(searchRequest);
+                    searchVO.setPictureList(picturePage.getRecords());
+                case POST:
+                    Page<PostVO> postVOPage = this.searchPosts(searchRequest, request);
+                    searchVO.setPostList(postVOPage.getRecords());
+            }
         }
+        return ResultUtils.success(searchVO);
     }
 
     /**
      * 单独搜索用户
      *
      * @param searchRequest
-     * @return
+     * @return userVOPage
      */
-    @PostMapping("/user")
-    public BaseResponse<Page<UserVO>> searchUsers(@RequestBody SearchRequest searchRequest) {
+    private Page<UserVO> searchUsers(@RequestBody SearchRequest searchRequest) {
         String searchText = searchRequest.getSearchText();
         UserQueryRequest userQueryRequest = new UserQueryRequest();
         userQueryRequest.setUserName(searchText);
-        Page<UserVO> userVOPage = userService.listUserVOByPage(userQueryRequest);
-        return ResultUtils.success(userVOPage);
+        return userService.listUserVOByPage(userQueryRequest);
     }
 
     /**
      * 单独搜索图片
      *
      * @param searchRequest
-     * @return
+     * @return picturePage
      */
-    @PostMapping("/pic")
-    public BaseResponse<Page<Picture>> searchPictures(@RequestBody SearchRequest searchRequest) {
+    private Page<Picture> searchPictures(@RequestBody SearchRequest searchRequest) {
         String searchText = searchRequest.getSearchText();
-        Page<Picture> picturePage = pictureService.searchPicture(searchText, 1, 10);
-        return ResultUtils.success(picturePage);
+        return pictureService.searchPicture(searchText, 1, 10);
     }
 
     /**
@@ -115,15 +113,13 @@ public class SearchController {
      *
      * @param searchRequest
      * @param request
-     * @return
+     * @return postVOPage
      */
-    @PostMapping("/post")
-    public BaseResponse<Page<PostVO>> searchPosts(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
+    private Page<PostVO> searchPosts(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
         String searchText = searchRequest.getSearchText();
         PostQueryRequest postQueryRequest = new PostQueryRequest();
         postQueryRequest.setSearchText(searchText);
-        Page<PostVO> postVOPage = postService.listPostVOByPage(postQueryRequest, request);
-        return ResultUtils.success(postVOPage);
+        return postService.listPostVOByPage(postQueryRequest, request);
     }
 
 }

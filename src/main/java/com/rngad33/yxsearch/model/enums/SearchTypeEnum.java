@@ -21,4 +21,18 @@ public enum SearchTypeEnum {
         this.value = value;
     }
 
+    /**
+     * 根据 value 获取枚举
+     *
+     * @param value
+     * @return
+     */
+    public static SearchTypeEnum getEnumByValue(String value) {
+        for (SearchTypeEnum anEnum : SearchTypeEnum.values()) {
+            if (anEnum.value.equals(value)) {
+                return anEnum;
+            }
+        } return null;
+    }
+
 }
