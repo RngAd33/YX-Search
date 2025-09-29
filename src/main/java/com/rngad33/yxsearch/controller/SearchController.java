@@ -36,6 +36,9 @@ public class SearchController {
      */
     @PostMapping("/all")
     public BaseResponse<SearchVO> searchAll(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
+        String searchText = searchRequest.getSearchText();
+
+        SearchVO searchVO = new SearchVO();
 
         return ResultUtils.success(null);
     }
