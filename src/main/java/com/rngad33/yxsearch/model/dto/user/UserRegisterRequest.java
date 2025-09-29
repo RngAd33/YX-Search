@@ -1,22 +1,15 @@
 package com.rngad33.yxsearch.model.dto.user;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
  * 用户注册请求体
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Data
-public class UserRegisterRequest implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserRegisterRequest {
 
-    private static final long serialVersionUID = 3191241716373120793L;
+    private String userAccount, userPassword, checkPassword;
 
-    private String userAccount;
-
-    private String userPassword;
-
-    private String checkPassword;
 }

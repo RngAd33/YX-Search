@@ -10,10 +10,11 @@ import com.rngad33.yxsearch.model.entity.PostThumb;
 import com.rngad33.yxsearch.model.entity.User;
 import com.rngad33.yxsearch.service.PostService;
 import com.rngad33.yxsearch.service.PostThumbService;
-import javax.annotation.Resource;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * 帖子点赞服务实现

@@ -1,9 +1,11 @@
 package com.rngad33.yxsearch.model.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.common.PageRequest;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * 用户查询请求
@@ -13,6 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserQueryRequest extends PageRequest implements Serializable {
     /**
      * id

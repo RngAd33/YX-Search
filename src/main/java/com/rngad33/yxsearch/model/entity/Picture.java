@@ -1,14 +1,14 @@
 package com.rngad33.yxsearch.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * 图片实体类
  */
 @Data
-public class Picture implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Picture {
 
     /**
      * 图片标题
@@ -19,7 +19,5 @@ public class Picture implements Serializable {
      * 图片地址
      */
     private String url;
-
-    private static final long serialVersionUID = 1L;
 
 }

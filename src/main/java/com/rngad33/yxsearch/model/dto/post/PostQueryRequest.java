@@ -1,20 +1,19 @@
 package com.rngad33.yxsearch.model.dto.post;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.common.PageRequest;
-import java.io.Serializable;
-import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * 查询请求
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PostQueryRequest extends PageRequest implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostQueryRequest extends PageRequest {
 
     /**
      * id
@@ -61,5 +60,4 @@ public class PostQueryRequest extends PageRequest implements Serializable {
      */
     private Long favourUserId;
 
-    private static final long serialVersionUID = 1L;
 }

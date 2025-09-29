@@ -1,7 +1,7 @@
 package com.rngad33.yxsearch.service;
 
-import com.rngad33.yxsearch.model.entity.PostThumb;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rngad33.yxsearch.model.entity.PostThumb;
 import com.rngad33.yxsearch.model.entity.User;
 
 /**

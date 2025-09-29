@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.model.entity.Picture;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

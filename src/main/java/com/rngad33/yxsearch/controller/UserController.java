@@ -10,22 +10,11 @@ import com.rngad33.yxsearch.config.WxOpenConfig;
 import com.rngad33.yxsearch.constant.UserConstant;
 import com.rngad33.yxsearch.exception.MyException;
 import com.rngad33.yxsearch.exception.ThrowUtils;
-import com.rngad33.yxsearch.model.dto.user.UserAddRequest;
-import com.rngad33.yxsearch.model.dto.user.UserLoginRequest;
-import com.rngad33.yxsearch.model.dto.user.UserQueryRequest;
-import com.rngad33.yxsearch.model.dto.user.UserRegisterRequest;
-import com.rngad33.yxsearch.model.dto.user.UserUpdateMyRequest;
-import com.rngad33.yxsearch.model.dto.user.UserUpdateRequest;
+import com.rngad33.yxsearch.model.dto.user.*;
 import com.rngad33.yxsearch.model.entity.User;
 import com.rngad33.yxsearch.model.vo.LoginUserVO;
 import com.rngad33.yxsearch.model.vo.UserVO;
 import com.rngad33.yxsearch.service.UserService;
-
-import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
@@ -33,12 +22,12 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import static com.rngad33.yxsearch.service.impl.UserServiceImpl.SALT;
 

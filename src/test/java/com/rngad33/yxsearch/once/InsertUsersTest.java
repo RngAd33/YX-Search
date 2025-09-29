@@ -3,12 +3,10 @@ package com.rngad33.yxsearch.once;
 import cn.hutool.core.date.StopWatch;
 import com.rngad33.yxsearch.model.entity.User;
 import com.rngad33.yxsearch.service.UserService;
-
-import javax.annotation.Resource;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

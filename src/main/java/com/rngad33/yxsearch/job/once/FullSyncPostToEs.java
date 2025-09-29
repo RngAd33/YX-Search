@@ -1,21 +1,19 @@
 package com.rngad33.yxsearch.job.once;
 
+import cn.hutool.core.collection.CollUtil;
 import com.rngad33.yxsearch.esdao.PostEsDao;
 import com.rngad33.yxsearch.model.dto.post.PostEsDTO;
 import com.rngad33.yxsearch.model.entity.Post;
 import com.rngad33.yxsearch.service.PostService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import cn.hutool.core.collection.CollUtil;
-import org.springframework.boot.CommandLineRunner;
 
 /**
  * 全量同步帖子到 es
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 // todo 取消注释开启任务
 //@Component

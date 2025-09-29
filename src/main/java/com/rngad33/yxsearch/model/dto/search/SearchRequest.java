@@ -1,18 +1,15 @@
-package com.rngad33.yxsearch.common;
+package com.rngad33.yxsearch.model.dto.search;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
- * 删除请求
+ * 搜索请求
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DeleteRequest {
+public class SearchRequest {
 
-    /**
-     * id
-     */
-    private Long id;
+
 
 }

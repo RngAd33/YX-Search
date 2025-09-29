@@ -1,10 +1,9 @@
 package com.rngad33.yxsearch.model.vo;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 用户视图（脱敏）

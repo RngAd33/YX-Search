@@ -3,11 +3,11 @@ package com.rngad33.yxsearch.model.vo;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.model.entity.Post;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 帖子视图

@@ -2,29 +2,26 @@ package com.rngad33.yxsearch.model.dto.post;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rngad33.yxsearch.model.entity.Post;
 import lombok.Data;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * 帖子 ES 包装类
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
- **/
+ */
 // todo 取消注释开启 ES（须先配置 ES）
 //@Document(indexName = "post")
 @Data
-public class PostEsDTO implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostEsDTO {
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
@@ -80,8 +77,6 @@ public class PostEsDTO implements Serializable {
      * 是否删除
      */
     private Integer isDelete;
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * 对象转包装类
