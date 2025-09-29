@@ -4,16 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.constant.CommonConstant;
 import com.rngad33.yxsearch.exception.MyException;
@@ -48,6 +38,11 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 帖子服务实现

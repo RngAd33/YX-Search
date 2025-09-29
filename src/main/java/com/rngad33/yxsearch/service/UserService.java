@@ -1,8 +1,5 @@
 package com.rngad33.yxsearch.service;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -11,6 +8,9 @@ import com.rngad33.yxsearch.model.entity.User;
 import com.rngad33.yxsearch.model.vo.LoginUserVO;
 import com.rngad33.yxsearch.model.vo.UserVO;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 用户服务
