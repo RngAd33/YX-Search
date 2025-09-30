@@ -26,7 +26,7 @@ public class SafebooruSearchTest {
      */
     @Test
     void doSearchFromSafebooru() throws IOException {
-        Document doc = Jsoup.connect("https://safebooru.org/index.php?page=post&s=list&tags=arknights").get();
+        Document doc = Jsoup.connect("https://safebooru.org/index.php?page=post&s=list&tags=arknights&pid=0").get();
 //        System.out.println(doc);
         // 筛选缩略图元素
         List<String> pictures = new LinkedList<>();
