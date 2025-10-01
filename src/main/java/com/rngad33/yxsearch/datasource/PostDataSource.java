@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rngad33.yxsearch.common.ErrorCode;
 import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.model.dto.post.PostQueryRequest;
-import com.rngad33.yxsearch.model.entity.Post;
 import com.rngad33.yxsearch.model.vo.PostVO;
 import com.rngad33.yxsearch.service.PostService;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,6 @@ package com.rngad33.yxsearch.once;
 import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.util.RandomUtil;
 import com.rngad33.yxsearch.model.entity.Post;
-import com.rngad33.yxsearch.model.entity.User;
 import com.rngad33.yxsearch.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +11,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.*;
 
 /**

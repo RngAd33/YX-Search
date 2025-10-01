@@ -12,16 +12,10 @@ import com.rngad33.yxsearch.model.enums.SearchTypeEnum;
 import com.rngad33.yxsearch.model.vo.PostVO;
 import com.rngad33.yxsearch.model.vo.SearchVO;
 import com.rngad33.yxsearch.model.vo.UserVO;
-import com.rngad33.yxsearch.service.PictureService;
-import com.rngad33.yxsearch.service.PostService;
-import com.rngad33.yxsearch.service.UserService;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 搜索门面
