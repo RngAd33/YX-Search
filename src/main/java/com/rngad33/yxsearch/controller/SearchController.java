@@ -57,7 +57,7 @@ public class SearchController {
         ThrowUtils.throwIf(!StrUtil.isAllNotBlank(searchText, type), ErrorCode.PARAMS_ERROR);
         SearchVO searchVO = new SearchVO();
         if (ObjUtil.isNull(searchTypeEnum)) {
-            // 未规定类型，搜索所有
+            // - 未规定类型，搜索所有
             Page<UserVO> userVOPage = this.searchUsers(searchRequest);
             Page<Picture> picturePage = this.searchPictures(searchRequest);
             Page<PostVO> postVOPage = this.searchPosts(searchRequest, request);
@@ -66,17 +66,20 @@ public class SearchController {
             searchVO.setPictureList(picturePage.getRecords());
             searchVO.setPostList(postVOPage.getRecords());
         } else {
-            // 匹配类型搜索
+            // - 匹配类型搜索
             switch (searchTypeEnum) {
                 case USER:
                     Page<UserVO> userVOPage = this.searchUsers(searchRequest);
                     searchVO.setUserList(userVOPage.getRecords());
+                    break;
                 case PICTURE:
                     Page<Picture> picturePage = searchPictures(searchRequest);
                     searchVO.setPictureList(picturePage.getRecords());
+                    break;
                 case POST:
                     Page<PostVO> postVOPage = this.searchPosts(searchRequest, request);
                     searchVO.setPostList(postVOPage.getRecords());
+                    break;
             }
         }
         return ResultUtils.success(searchVO);
