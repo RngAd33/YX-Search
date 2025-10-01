@@ -30,13 +30,12 @@ public class SearchController {
      * 聚合搜索
      *
      * @param searchRequest
-     * @param request
      * @return searchVO
      */
     @PostMapping("/all")
-    public BaseResponse<SearchVO> searchAll(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
+    public BaseResponse<SearchVO> searchAll(@RequestBody SearchRequest searchRequest) {
         ThrowUtils.throwIf(ObjUtil.isNull(searchRequest), ErrorCode.PARAMS_ERROR);
-        SearchVO searchVO = searchFacade.searchAll(searchRequest, request);
+        SearchVO searchVO = searchFacade.searchAll(searchRequest);
         return ResultUtils.success(searchVO);
     }
 

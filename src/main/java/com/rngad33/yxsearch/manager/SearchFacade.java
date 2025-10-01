@@ -39,10 +39,9 @@ public class SearchFacade {
      * 聚合搜索
      *
      * @param searchRequest
-     * @param request
      * @return
      */
-    public SearchVO searchAll(SearchRequest searchRequest, HttpServletRequest request) {
+    public SearchVO searchAll(SearchRequest searchRequest) {
         String searchText = searchRequest.getSearchText();
         String type = searchRequest.getType();
         SearchTypeEnum searchTypeEnum = SearchTypeEnum.getEnumByValue(type);
