@@ -28,4 +28,9 @@ public class SearchVO {
      */
     private List<PostVO> postList;
 
+    /**
+     * 数据表
+     */
+    private List<?> dataList;
+
 }

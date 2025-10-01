@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rngad33.yxsearch.common.ErrorCode;
+import com.rngad33.yxsearch.datasource.DataSource;
 import com.rngad33.yxsearch.datasource.PictureDataSource;
 import com.rngad33.yxsearch.datasource.PostDataSource;
 import com.rngad33.yxsearch.datasource.UserDataSource;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 搜索门面
@@ -53,6 +56,7 @@ public class SearchFacade {
         long pageNum = searchRequest.getCurrent();
         long pageSize = searchRequest.getPageSize();
         SearchVO searchVO = new SearchVO();
+        DataSource<?> dataSource = null;
         if (ObjUtil.isNull(searchTypeEnum)) {
             // - 未规定类型，搜索所有
             Page<UserVO> userVOPage = userDataSource.doSearch(searchText, pageNum, pageSize);
@@ -64,20 +68,14 @@ public class SearchFacade {
             searchVO.setPostList(postVOPage.getRecords());
         } else {
             // - 匹配类型搜索
-            switch (searchTypeEnum) {
-                case USER:
-                    Page<UserVO> userVOPage = userDataSource.doSearch(searchText, pageNum, pageSize);
-                    searchVO.setUserList(userVOPage.getRecords());
-                    break;
-                case PICTURE:
-                    Page<Picture> picturePage = pictureDataSource.doSearch(searchText, pageNum, pageSize);
-                    searchVO.setPictureList(picturePage.getRecords());
-                    break;
-                case POST:
-                    Page<PostVO> postVOPage = postDataSource.doSearch(searchText, pageNum, pageSize);
-                    searchVO.setPostList(postVOPage.getRecords());
-                    break;
-            }
+            Map<String, DataSource<?>> dataSourceMap = new HashMap<String, DataSource<?>>() {{
+                put(SearchTypeEnum.USER.getValue(), userDataSource);
+                put(SearchTypeEnum.PICTURE.getValue(), pictureDataSource);
+                put(SearchTypeEnum.POST.getValue(), postDataSource);
+            }};
+            dataSource = dataSourceMap.get(type);
+            Page<?> page = dataSource.doSearch(searchText, pageNum, pageSize);
+            searchVO.setDataList(page.getRecords());
         }
         return searchVO;
     }
