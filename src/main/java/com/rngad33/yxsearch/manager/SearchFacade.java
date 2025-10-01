@@ -4,10 +4,7 @@ import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rngad33.yxsearch.common.ErrorCode;
-import com.rngad33.yxsearch.datasource.DataSource;
-import com.rngad33.yxsearch.datasource.PictureDataSource;
-import com.rngad33.yxsearch.datasource.PostDataSource;
-import com.rngad33.yxsearch.datasource.UserDataSource;
+import com.rngad33.yxsearch.datasource.*;
 import com.rngad33.yxsearch.exception.ThrowUtils;
 import com.rngad33.yxsearch.model.dto.search.SearchRequest;
 import com.rngad33.yxsearch.model.entity.Picture;
@@ -41,6 +38,9 @@ public class SearchFacade {
     @Resource
     private PostDataSource postDataSource;
 
+    @Resource
+    private DataSourceRegistry dataSourceRegistry;
+
     /**
      * 聚合搜索
      *
@@ -67,12 +67,7 @@ public class SearchFacade {
             searchVO.setPostList(postVOPage.getRecords());
         } else {
             // - 匹配到类型，按需搜索
-            Map<String, DataSource<?>> dataSourceMap = new HashMap<String, DataSource<?>>() {{
-                put(SearchTypeEnum.USER.getValue(), userDataSource);
-                put(SearchTypeEnum.PICTURE.getValue(), pictureDataSource);
-                put(SearchTypeEnum.POST.getValue(), postDataSource);
-            }};
-            DataSource<?> dataSource = dataSourceMap.get(type);
+            DataSource<?> dataSource = dataSourceRegistry.getDataSourceByType(type);
             Page<?> page = dataSource.doSearch(searchText, pageNum, pageSize);
             searchVO.setDataList(page.getRecords());
         }
