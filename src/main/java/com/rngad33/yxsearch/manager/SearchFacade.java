@@ -42,7 +42,7 @@ public class SearchFacade {
     private PostDataSource postDataSource;
 
     /**
-     * 聚合检索
+     * 聚合搜索
      *
      * @param searchRequest
      * @param request
