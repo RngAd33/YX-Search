@@ -1,6 +1,7 @@
 package com.rngad33.yxsearch.model.dto.search;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.rngad33.yxsearch.common.PageRequest;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SearchRequest {
+public class SearchRequest extends PageRequest {
 
     /**
      * 搜索词
