@@ -56,7 +56,6 @@ public class SearchFacade {
         long pageNum = searchRequest.getCurrent();
         long pageSize = searchRequest.getPageSize();
         SearchVO searchVO = new SearchVO();
-        DataSource<?> dataSource = null;
         if (ObjUtil.isNull(searchTypeEnum)) {
             // - 未规定类型，搜索所有
             Page<UserVO> userVOPage = userDataSource.doSearch(searchText, pageNum, pageSize);
@@ -67,13 +66,13 @@ public class SearchFacade {
             searchVO.setPictureList(picturePage.getRecords());
             searchVO.setPostList(postVOPage.getRecords());
         } else {
-            // - 匹配类型搜索
+            // - 匹配到类型，按需搜索
             Map<String, DataSource<?>> dataSourceMap = new HashMap<String, DataSource<?>>() {{
                 put(SearchTypeEnum.USER.getValue(), userDataSource);
                 put(SearchTypeEnum.PICTURE.getValue(), pictureDataSource);
                 put(SearchTypeEnum.POST.getValue(), postDataSource);
             }};
-            dataSource = dataSourceMap.get(type);
+            DataSource<?> dataSource = dataSourceMap.get(type);
             Page<?> page = dataSource.doSearch(searchText, pageNum, pageSize);
             searchVO.setDataList(page.getRecords());
         }
