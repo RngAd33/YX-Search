@@ -1,4 +1,4 @@
-package com.rngad33.yxsearch.esdao;
+package com.rngad33.yxsearch.utils.esdao;
 
 import com.rngad33.yxsearch.model.dto.post.PostEsDTO;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

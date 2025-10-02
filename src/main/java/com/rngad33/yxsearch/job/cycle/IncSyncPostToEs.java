@@ -1,7 +1,7 @@
 package com.rngad33.yxsearch.job.cycle;
 
 import cn.hutool.core.collection.CollUtil;
-import com.rngad33.yxsearch.esdao.PostEsDao;
+import com.rngad33.yxsearch.utils.esdao.PostEsDao;
 import com.rngad33.yxsearch.mapper.PostMapper;
 import com.rngad33.yxsearch.model.dto.post.PostEsDTO;
 import com.rngad33.yxsearch.model.entity.Post;
