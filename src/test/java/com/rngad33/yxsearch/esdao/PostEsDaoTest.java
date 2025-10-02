@@ -1,6 +1,5 @@
-package com.rngad33.yxsearch.controller.esdao;
+package com.rngad33.yxsearch.esdao;
 
-import com.rngad33.yxsearch.esdao.PostEsDao;
 import com.rngad33.yxsearch.model.dto.post.PostEsDTO;
 import com.rngad33.yxsearch.model.dto.post.PostQueryRequest;
 import com.rngad33.yxsearch.model.entity.Post;
