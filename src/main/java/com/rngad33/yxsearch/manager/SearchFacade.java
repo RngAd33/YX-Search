@@ -48,6 +48,7 @@ public class SearchFacade {
         ThrowUtils.throwIf(!StrUtil.isAllNotBlank(searchText, type), ErrorCode.PARAMS_ERROR);
         long pageNum = searchRequest.getCurrent();
         long pageSize = searchRequest.getPageSize();
+        ThrowUtils.throwIf(pageNum <= 0 || pageSize <= 0, ErrorCode.PARAMS_ERROR);
         SearchVO searchVO = new SearchVO();
         if (ObjUtil.isNull(searchTypeEnum)) {
             // - 未规定类型，搜索所有
