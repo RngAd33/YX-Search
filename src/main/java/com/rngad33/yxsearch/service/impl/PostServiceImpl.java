@@ -65,6 +65,12 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     @Resource
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
+    /**
+     * 校验帖子
+     *
+     * @param post
+     * @param add
+     */
     @Override
     public void validPost(Post post, boolean add) {
         if (post == null) {
@@ -127,6 +133,12 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         return queryWrapper;
     }
 
+    /**
+     * ES搜索
+     *
+     * @param postQueryRequest
+     * @return
+     */
     @Override
     public Page<Post> searchFromEs(PostQueryRequest postQueryRequest) {
         Long id = postQueryRequest.getId();
@@ -154,13 +166,13 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         if (userId != null) {
             boolQueryBuilder.filter(QueryBuilders.termQuery("userId", userId));
         }
-        // 必须包含所有标签
+        // - 必须包含所有标签
         if (CollectionUtils.isNotEmpty(tagList)) {
             for (String tag : tagList) {
                 boolQueryBuilder.filter(QueryBuilders.termQuery("tags", tag));
             }
         }
-        // 包含任何一个标签即可
+        // - 包含任何一个标签即可
         if (CollectionUtils.isNotEmpty(orTagList)) {
             BoolQueryBuilder orTagBoolQueryBuilder = QueryBuilders.boolQuery();
             for (String tag : orTagList) {
@@ -205,7 +217,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
             List<SearchHit<PostEsDTO>> searchHitList = searchHits.getSearchHits();
             List<Long> postIdList = searchHitList.stream().map(searchHit -> searchHit.getContent().getId())
                     .collect(Collectors.toList());
-            // 从数据库中取出更完整的数据
+            // - 从数据库中取出更完整的数据
             List<Post> postList = baseMapper.selectBatchIds(postIdList);
             if (postList != null) {
                 Map<Long, List<Post>> idPostMap = postList.stream().collect(Collectors.groupingBy(Post::getId));
@@ -224,6 +236,13 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         return page;
     }
 
+    /**
+     * 获取封装类
+     *
+     * @param post
+     * @param request
+     * @return
+     */
     @Override
     public PostVO getPostVO(Post post, HttpServletRequest request) {
         PostVO postVO = PostVO.objToVo(post);
@@ -255,6 +274,13 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         return postVO;
     }
 
+    /**
+     * 封装类分页
+     *
+     * @param postPage
+     * @param request
+     * @return
+     */
     @Override
     public Page<PostVO> getPostVOPage(Page<Post> postPage, HttpServletRequest request) {
         List<Post> postList = postPage.getRecords();
@@ -273,13 +299,13 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         if (loginUser != null) {
             Set<Long> postIdSet = postList.stream().map(Post::getId).collect(Collectors.toSet());
             loginUser = userService.getLoginUser(request);
-            // 获取点赞
+            // - 获取点赞
             QueryWrapper<PostThumb> postThumbQueryWrapper = new QueryWrapper<>();
             postThumbQueryWrapper.in("postId", postIdSet);
             postThumbQueryWrapper.eq("userId", loginUser.getId());
             List<PostThumb> postPostThumbList = postThumbMapper.selectList(postThumbQueryWrapper);
             postPostThumbList.forEach(postPostThumb -> postIdHasThumbMap.put(postPostThumb.getPostId(), true));
-            // 获取收藏
+            // - 获取收藏
             QueryWrapper<PostFavour> postFavourQueryWrapper = new QueryWrapper<>();
             postFavourQueryWrapper.in("postId", postIdSet);
             postFavourQueryWrapper.eq("userId", loginUser.getId());
@@ -303,6 +329,13 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         return postVOPage;
     }
 
+    /**
+     * 分页获取封装类
+     *
+     * @param postQueryRequest
+     * @param request
+     * @return
+     */
     @Override
     public Page<PostVO> listPostVOByPage(PostQueryRequest postQueryRequest, HttpServletRequest request) {
         long current = postQueryRequest.getCurrent();

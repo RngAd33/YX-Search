@@ -19,6 +19,14 @@ public class UserDataSource implements DataSource<UserVO> {
     @Resource
     private UserService userService;
 
+    /**
+     * 在线搜索用户
+     *
+     * @param searchText
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public Page<UserVO> doSearch(String searchText, long pageNum, long pageSize) {
         UserQueryRequest userQueryRequest = new UserQueryRequest();
