@@ -1,25 +1,24 @@
-package com.rngad33.yxsearch.job.once;
+package com.rngad33.yxsearch.sync;
 
 import cn.hutool.core.collection.CollUtil;
-import com.rngad33.yxsearch.utils.esdao.PostEsDao;
 import com.rngad33.yxsearch.model.dto.post.PostEsDTO;
 import com.rngad33.yxsearch.model.entity.Post;
 import com.rngad33.yxsearch.service.PostService;
+import com.rngad33.yxsearch.utils.esdao.PostEsDao;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 全量同步帖子到 es
+ * 数据同步测试类
  */
-// todo 取消注释开启任务
-//@Component
+@SpringBootTest
 @Slf4j
-public class FullSyncPostToEs implements CommandLineRunner {
+public class SyncTest {
 
     @Resource
     private PostService postService;
@@ -27,8 +26,11 @@ public class FullSyncPostToEs implements CommandLineRunner {
     @Resource
     private PostEsDao postEsDao;
 
-    @Override
-    public void run(String... args) {
+    /**
+     * 全量同步帖子到 ES
+     */
+    @Test
+    void doSyncFromSqlToEs() {
         List<Post> postList = postService.list();
         if (CollUtil.isEmpty(postList)) {
             return;
@@ -44,4 +46,5 @@ public class FullSyncPostToEs implements CommandLineRunner {
         }
         log.info("FullSyncPostToEs end, total {}", total);
     }
+
 }
